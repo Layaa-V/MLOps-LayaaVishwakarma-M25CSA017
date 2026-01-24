@@ -39,4 +39,26 @@ This section reports the performance of a **Support Vector Machine (SVM)** class
 * Across both datasets, the **Polynomial** kernel was consistently faster to train than the **RBF** kernel while maintaining comparable accuracy.
 ---
 
+## Q2: Hardware & Computational Efficiency (FashionMNIST)
+This section analyzes the performance of ResNet architectures across different compute devices (**CPU vs. GPU**), measuring accuracy, training time, and computational complexity (FLOPs).
+
+### Hardware Comparison & FLOPs Table
+| Compute | Batch Size | Optimizer | LR | Model | Test Accuracy (%) | Train Time (ms) | FLOPs |
+|:---:|:---:|:---:|:---:|:---|:---:|:---:|:---:|
+| GPU | 16 | SGD | 0.001 | ResNet-18 | 87.64 | 2239.42 | 142,441,984 |
+| GPU | 16 | Adam | 0.001 | ResNet-18 | 88.65 | 2287.93 | 142,441,984 |
+| GPU | 16 | SGD | 0.001 | ResNet-50 | 80.92 | 4807.82 | 330,881,024 |
+| GPU | 16 | Adam | 0.001 | ResNet-50 | 84.77 | 4548.97 | 330,881,024 |
+| CPU | 16 | SGD | 0.001 | ResNet-18 | 87.77 | 9764.73 | 142,441,984 |
+| CPU | 16 | Adam | 0.001 | ResNet-18 | 89.48 | 11360.59 | 142,441,984 |
+| CPU | 16 | SGD | 0.001 | ResNet-50 | 78.84 | 18040.84 | 330,881,024 |
+| CPU | 16 | Adam | 0.001 | ResNet-50 | 74.02 | 21231.78 | 330,881,024 |
+
+### Analysis of Q2 Results
+* **Hardware Acceleration**: The GPU provided a massive speedup compared to the CPU. For ResNet-50, training time dropped from 21,231 ms on CPU to 4,548 ms on GPU, a reduction of approximately 78%. 
+* **FLOPs vs. Depth**: **ResNet-50** requires significantly higher computational power compared to **ResNet-18**. On FashionMNIST, the higher FLOP count of ResNet-50 did not translate to higher accuracy, suggesting ResNet-18 is more efficient for this specific task.
+* **Compute Consistency**: Accuracy remained largely consistent across CPU and GPU for ResNet-18. However, ResNet-50 showed more variance on CPU, likely due to the extreme training time affecting convergence stability during the test window.
+
+---
+
 
