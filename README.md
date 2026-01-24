@@ -54,7 +54,7 @@ This section analyzes the performance of ResNet architectures across different c
 | CPU | 16 | SGD | 0.001 | ResNet-50 | 78.84 | 18040.84 | 330,881,024 |
 | CPU | 16 | Adam | 0.001 | ResNet-50 | 74.02 | 21231.78 | 330,881,024 |
 
-### Analysis of Q2 Results
+### Key Observations
 * **Hardware Acceleration**: The GPU provided a massive speedup compared to the CPU. For ResNet-50, training time dropped from 21,231 ms on CPU to 4,548 ms on GPU, a reduction of approximately 78%. 
 * **FLOPs vs. Depth**: **ResNet-50** requires significantly higher computational power compared to **ResNet-18**. On FashionMNIST, the higher FLOP count of ResNet-50 did not translate to higher accuracy, suggesting ResNet-18 is more efficient for this specific task.
 * **Compute Consistency**: Accuracy remained largely consistent across CPU and GPU for ResNet-18. However, ResNet-50 showed more variance on CPU, likely due to the extreme training time affecting convergence stability during the test window.
