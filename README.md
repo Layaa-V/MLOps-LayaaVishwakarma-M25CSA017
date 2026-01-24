@@ -34,8 +34,8 @@ This section reports the performance of a **Support Vector Machine (SVM)** class
 | FashionMNIST | rbf | 85.16 | 58355.74 |
 
 ### Key Observations - 
-* On the MNIST dataset, the **RBF** kernel slightly outperformed the **Polynomial** kernel in accuracy, but it required significantly more training time (~60 seconds vs ~42 seconds).
-* Accuracy was noticeably lower on **FashionMNIST** (~85-86%) compared to **MNIST** (~96%), indicating that FashionMNIST presents a more complex classification task for classical SVMs.
+* On the MNIST dataset, the **RBF** kernel slightly outperformed the **Polynomial** kernel in accuracy, but it required significantly more training time (nearly 60 seconds vs nearly 42 seconds).
+* Accuracy was noticeably lower on **FashionMNIST** (85-86%) compared to **MNIST** (96%), indicating that FashionMNIST presents a more complex classification task for classical SVMs.
 * Across both datasets, the **Polynomial** kernel was consistently faster to train than the **RBF** kernel while maintaining comparable accuracy.
 ---
 
