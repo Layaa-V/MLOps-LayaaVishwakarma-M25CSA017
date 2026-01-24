@@ -19,7 +19,8 @@ The following table summarizes the classification test accuracy for **ResNet-18*
 ### Key Observations - 
 
 * Across almost all configurations, the **Adam** optimizer consistently outperformed **SGD**.
-* Both models performed exceptionally well at a learning rate of 0.001, but at lower learning rate of 0.0001, SGD struggled while Adam remained stable. 
+* Both models performed exceptionally well at a learning rate of 0.001.
+* At lower learning rate of 0.0001, SGD struggled while Adam remained stable. 
 * Smaller batch sizes (16) generally yielded slightly better results for SGD at low learning rates compared to batch size 32.
 ---
 
