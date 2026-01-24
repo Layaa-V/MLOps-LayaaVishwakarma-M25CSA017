@@ -1,4 +1,4 @@
-# DL-Ops Lab Assignment 1 Results
+# ML-DL-Ops Lab Assignment 1 Results
 
 ## Q1(a): ResNet Performance Analysis on MNIST/FashionMNIST
 The following table summarizes the classification test accuracy for **ResNet-18** and **ResNet-50** across various hyperparameters, including Batch Size, Optimizer, and Learning Rate.
@@ -17,9 +17,7 @@ The following table summarizes the classification test accuracy for **ResNet-18*
 
 ---
 
-### Detailed Analysis of Q1(a) Results
-
-Based on the experimental data provided in the table, several key observations can be made regarding the impact of hyperparameters on model performance:
+### Key Observations - 
 
 #### 1. Optimizer Efficiency: Adam vs. SGD
 * [cite_start]**Adam Superiority**: Across almost all configurations, the **Adam** optimizer consistently outperformed **SGD**[cite: 23]. Adam achieved accuracies >99% in most cases, demonstrating its robustness and faster convergence on these datasets.
