@@ -1,0 +1,95 @@
+# NEGOTIATIONS SUMMARY 
+# Producers - Data Engineering Team
+# Consumers - Machine Learning Team (Dynamic Pricing Algorithm)
+# Agreed Terms - 
+#   - Easily readable, business friendly schema
+#   - Strict constrains for stopping invalid data(fare, rating and distance) 
+#   - Privacy of Passenger
+#   - Freshness of data
+
+dataContractSpecification: 0.9.3
+id: urn:datacontract:citymove:rides-log 
+version: 1.0.0
+
+#Ownership 
+info:
+  title: "Rides feed"
+  description: |
+    Ride transaction data for the Dynamic Pricing Algorithm (Machine Learning Team).
+    Source: Operational DB (raw_rides_log_v2).
+  owner: Data Engineering 
+  contact: 
+    name: "Engineering Lead"
+    email: "dataeng@citymove.com"
+  classification: internal
+  tags: [pricing, Dynamic Pricing Algorithm, pii-sensitive]
+
+# Schema
+schema: 
+  type: object
+  properties:
+    ride_id:
+      type: string
+      description: Unique identification for the ride
+      unique: true
+      # physical source - r_id
+
+    start_time: 
+      type: string
+      format: date-time
+      description: Start time of the ride
+      # physical source - ts_start
+
+    passenger_id: 
+      type: integer
+      description: Unique identifier for a passenger
+      pii: true
+      # physical source - pax_id
+
+    driver_rating: 
+      type: number # float is written as numbers
+      description: Rating given to the driver based on passenger experience
+      # physical source - d_rating
+
+    ride_cost_USD: 
+      type: number
+      description: Total fare of ride
+      # physical source - fare_final
+
+    ride_distance_meters: 
+      type: integer
+      description: Distance travelled in ride_distance_meters
+      # physical source - dist_m
+
+# Data Quality Rules
+quality: 
+  - name: non_negative_cost
+    type: validity
+    expression: "ride_cost_USD >= 0"
+    threshold: "100%"
+    enforcement: hard
+
+  - name: driver_rating_range
+    type: validity
+    expression: "driver_rating >= 1.0 AND driver_rating <= 5.0"
+    threshold: "100%"
+
+  - distance_check:
+    type: completeness
+    column: ride_distance_meters
+    threshold: "100%"  
+
+#SLA
+sla: 
+  freshness: 
+    threshold: " 30 minutes"
+    description: Data must be available to model within 30 inutes of ride completion. 
+
+
+
+
+
+
+
+
+

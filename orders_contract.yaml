@@ -1,0 +1,58 @@
+# NEGOTIATION SUMMARY 
+# Producers - Order checkout team 
+# Consumers - Marketing Dashboard Team
+# Purpose - To ensure invalid data does not flow through pipeline (eg - negative order_total or unmapped status code)
+
+dataContractSpecification: 0.9.3
+id: urn:datacontract:company:orders-log
+version: 1.0.0
+
+# Ownership
+info: 
+  title: "Orders feed"
+  description: |
+    Order transactions with mapped statuses. 
+    To prevent dashboard crash by standardizing status code.
+  owner: Order Checkout Team
+  contact:
+    name: Order Checkout Head
+    email: checkout@company.com
+  classification: internal 
+  tags: [orders, status, dashboard]
+
+#schema
+schema: 
+  type: object
+  properties: 
+    order_cost_USD:
+      type: number
+      description: Total cost of the order
+      # physical column - o_total
+
+    order_status: 
+      type: string
+      description: Current status of order (2=Paid, 5=Shipped, 9=Cancelled)
+      enum: [Paid, Shipped, Cancelled]
+      # column mapped to physical column status_code
+
+# Data Quality check
+quality: 
+  - name: non_negative_cost
+    type: validity
+    expresiion: "order_toal_cost >= 0"
+    threshold: "100%"
+
+  - name: valid_status_code
+    type: validity
+    expresiion: "status_code in (2,5,9)" 
+    threshold: "100%"
+    enforcement: hard
+
+
+
+
+  
+  
+
+
+          

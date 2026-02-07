@@ -1,0 +1,54 @@
+# Negotiation summary 
+# Producers - Fraud Detection team 
+# Consumers - Transaction Governance team 
+# Purpose - To check the validity of accounts betweeen which the transfer occurs and prohibit any fraud activities.
+
+dataContractSpecification: 0.9.3
+id: urn:datacontract:xybank:fraud-detection
+version: 1.0.0
+
+# Ownership
+info: 
+  title: fraud_detection
+  description: |
+    To check the validity of accounts and detect any abnormality in account numbers.
+    Blocking the pipeline in case of any violation. 
+    Enforces strict 10-char format to prevent system corruption.
+  owner: Fraud detection team
+  contact:
+    name: Fraud Detection Head
+    email: frauddetect@xybank.com
+  classification: confidential
+  tags: [fraud, account, detection]
+
+#schema 
+schema:
+  type: object
+  properties:
+    source_account:
+      type: string
+      description: Unique ID of the sender. Must be exactly 10 uppercase alphanumeric chars.
+      #physical mapping - acct_src
+
+    destination_account: 
+      type: string 
+      description: Unique ID of the receiver.
+      #physical mapping - acct_dest
+
+    transaction_time:
+      type: string
+      format: date-time
+      description: Time at which the transaction took place.
+      #physical mapping - tx_ts
+
+quality: 
+  - name: valid_source_account_format
+    type: pattern
+    column: source_account
+    expresiion: "^[A-Z0-9]{10}$" 
+    #REGEX - ^ = start; [A-Z0-9] = A-Z or 0-9 only; {10} = exactly 10 times; $ = end
+    threshold: "100%"
+    enforcement: hard #hard circuit breaker
+
+
+

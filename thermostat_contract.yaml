@@ -1,0 +1,58 @@
+# Negotiation summary 
+# Producers - IoT Engineering team
+# Consumers - Analytics team 
+# Purpose - To ensure corrected handling of faulty sensor enteries
+
+dataContractSpecifocation: 0.9.3
+id: urn:datacontract:company:thermostat-reading
+version: 1.0.0
+
+#Ownership
+info:
+  title: thermostat_readings
+  description: To ensure the validity of data and preventing statistical and analytical errors. 
+  owner: IoT Engineering team
+  contact: 
+    name: IoT Engineering head
+    email: IoTeng@company.com
+  classification: internal
+  tags: [thermostat readings, IoT, analytics]
+
+#schema
+schema: 
+  type: object
+  required: [device_id, temperature_celcius]
+  properties:
+
+    device_id:
+      type: string
+      description: Unique device identifier
+      unique: true
+      # physical mapping - dev_id
+
+    temperature_celcius: 
+      type: number
+      description: Shows temperature value in celcius
+      # physical mapping - temp_c
+
+    battery_level: 
+      type: number
+      description: Shows battery health status (0.0 = dead battery, 1.0 = full charge)
+      # physical mapping - batt_lvl
+
+# Data Quality check 
+quality: 
+  - name: temperature_range
+    type: validity
+    expression: "temperature_celcius >= -30 AND temperature_celcius <= 60"
+    threshold: "100%"
+    enforcement: hard
+
+  - name: battery_level_check
+    type: validity
+    expression: "battery_level >= 0 AND battery_level <= 1.0"
+    threshold: 100%
+
+  
+    
+
