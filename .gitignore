@@ -1,0 +1,17 @@
+# PyTorch and Hugging Face Model Weights
+*.pt
+*.bin
+*.safetensors
+results/
+logs/
+
+# Datasets
+*.json.gz
+*.csv
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# OS generated files
+.DS_Store

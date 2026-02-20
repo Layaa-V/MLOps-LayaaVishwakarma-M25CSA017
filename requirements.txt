@@ -1,0 +1,9 @@
+transformers[torch]
+torch
+scikit-learn
+pandas
+numpy
+matplotlib
+seaborn
+requests
+huggingface-hub
