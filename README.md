@@ -24,6 +24,7 @@ The model was fine-tuned using the Hugging Face Trainer API on a sampled dataset
 
 ### Evaluation Comparison
 The model was evaluated locally immediately after training.
+
 Evaluation Accuracy: 0.5875
 
 ---
