@@ -5,16 +5,17 @@
 > **WandB Project:** [Add your WandB link here]  
 > **HuggingFace Model:** [Add your HuggingFace link here]
 
----
+-----
 
 ## Table of Contents
-1. [Project Structure](#project-structure)
-2. [Setup](#setup)
-3. [Q1 – ViT-S LoRA Fine-tuning on CIFAR-100](#q1--vit-s-lora-fine-tuning-on-cifar-100)
-4. [Q2 – Adversarial Attacks with IBM ART](#q2--adversarial-attacks-with-ibm-art)
-5. [Results](#results)
 
----
+1.  [Project Structure](https://www.google.com/search?q=%23project-structure)
+2.  [Setup](https://www.google.com/search?q=%23setup)
+3.  [Q1 – ViT-S LoRA Fine-tuning on CIFAR-100](https://www.google.com/search?q=%23q1--vit-s-lora-fine-tuning-on-cifar-100)
+4.  [Q2 – Adversarial Attacks with IBM ART](https://www.google.com/search?q=%23q2--adversarial-attacks-with-ibm-art)
+5.  [Results](https://www.google.com/search?q=%23results)
+
+-----
 
 ## Project Structure
 
@@ -33,7 +34,7 @@ Assignment5/
 └── weights/               # Saved model checkpoints (pushed to GitHub)
 ```
 
----
+-----
 
 ## Setup
 
@@ -61,15 +62,16 @@ source venv/bin/activate   # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
----
+-----
 
 ## Q1 – ViT-S LoRA Fine-tuning on CIFAR-100
 
 ### Overview
-- **Model:** `WinKawaks/vit-small-patch16-224` (ViT-S pretrained on ImageNet-21k)
-- **Dataset:** CIFAR-100
-- **Experiments:** Baseline (head-only) + LoRA grid (rank ∈ {2,4,8}, alpha ∈ {2,4,8}, dropout=0.1)
-- **LoRA target modules:** `query`, `key`, `value`
+
+  - **Model:** `WinKawaks/vit-small-patch16-224` (ViT-S pretrained on ImageNet-21k)
+  - **Dataset:** CIFAR-100
+  - **Experiments:** Baseline (head-only) + LoRA grid (rank ∈ {2,4,8}, alpha ∈ {2,4,8}, dropout=0.1)
+  - **LoRA target modules:** `query`, `key`, `value`
 
 ### Training Commands
 
@@ -93,41 +95,37 @@ python test.py --ckpt ../weights/best_optuna_model.pt --lora --rank 4 --alpha 8
 
 ### Results Tables
 
-#### Training & Validation (Example – LoRA rank=4, alpha=8, dropout=0.1)
+#### Training & Validation (Example – LoRA rank=8, alpha=8, dropout=0.1)
 
 | Epoch | Train Loss | Val Loss | Train Acc | Val Acc |
 |-------|-----------|---------|-----------|---------|
-| 1     |           |         |           |         |
-| 2     |           |         |           |         |
-| 3     |           |         |           |         |
-| 4     |           |         |           |         |
-| 5     |           |         |           |         |
-| 6     |           |         |           |         |
-| 7     |           |         |           |         |
-| 8     |           |         |           |         |
-| 9     |           |         |           |         |
-| 10    |           |         |           |         |
-
-*(Fill in after running experiments)*
+| 1     | -         | -       | -         | -       |
+| 2     | -         | -       | -         | -       |
+| 3     | -         | -       | -         | -       |
+| 4     | -         | -       | -         | -       |
+| 5     | -         | -       | -         | -       |
+| 6     | -         | -       | -         | -       |
+| 7     | -         | -       | -         | -       |
+| 8     | -         | -       | -         | -       |
+| 9     | -         | -       | -         | -       |
+| 10    | 0.02746   | 0.39249 | 0.99326   | 0.9012  |
 
 #### Test Accuracy Summary
 
 | LoRA | Rank | Alpha | Dropout | Overall Test Acc | Trainable Params |
 |------|------|-------|---------|-----------------|-----------------|
-| No   | —    | —     | —       |                 |                 |
-| Yes  | 2    | 2     | 0.1     |                 |                 |
-| Yes  | 2    | 4     | 0.1     |                 |                 |
-| Yes  | 2    | 8     | 0.1     |                 |                 |
-| Yes  | 4    | 2     | 0.1     |                 |                 |
-| Yes  | 4    | 4     | 0.1     |                 |                 |
-| Yes  | 4    | 8     | 0.1     |                 |                 |
-| Yes  | 8    | 2     | 0.1     |                 |                 |
-| Yes  | 8    | 4     | 0.1     |                 |                 |
-| Yes  | 8    | 8     | 0.1     |                 |                 |
+| No   | —    | —     | —       | 0.8126          | 38,500          |
+| Yes  | 2    | 2     | 0.1     | 0.8952          | 93,796          |
+| Yes  | 2    | 4     | 0.1     | 0.8942          | 93,796          |
+| Yes  | 2    | 8     | 0.1     | 0.8984          | 93,796          |
+| Yes  | 4    | 2     | 0.1     | 0.8984          | 149,092         |
+| Yes  | 4    | 4     | 0.1     | 0.8997          | 149,092         |
+| Yes  | 4    | 8     | 0.1     | 0.8975          | 149,092         |
+| Yes  | 8    | 2     | 0.1     | 0.9013          | 259,684         |
+| Yes  | 8    | 4     | 0.1     | 0.8994          | 259,684         |
+| Yes  | 8    | 8     | 0.1     | 0.9012          | 259,684         |
 
-*(Fill in after running experiments)*
-
----
+-----
 
 ## Q2 – Adversarial Attacks with IBM ART
 
@@ -147,8 +145,9 @@ python fgsm.py --ckpt ../weights/resnet18_cifar10_best.pt --wandb_key YOUR_WANDB
 ```
 
 **Metrics logged to WandB:**
-- Clean vs adversarial accuracy at ε ∈ {0.01, 0.02, 0.05, 0.1, 0.2}
-- 10 visual samples: Original / FGSM-Scratch / FGSM-ART comparison grid
+
+  - Clean vs adversarial accuracy at ε ∈ {0.01, 0.02, 0.05, 0.1, 0.2}
+  - 10 visual samples: Original / FGSM-Scratch / FGSM-ART comparison grid
 
 ### Q2(ii) – Adversarial Detection (PGD & BIM)
 
@@ -164,19 +163,18 @@ python detect.py \
 ```
 
 **Expected Results:**
-- Detection accuracy ≥ 70% for both PGD and BIM
-- 10 clean + 10 adversarial samples logged to WandB per attack
+
+  - Detection accuracy ≥ 70% for both PGD and BIM
+  - 10 clean + 10 adversarial samples logged to WandB per attack
 
 #### Detection Results Summary
 
 | Attack | Detection Accuracy |
 |--------|-------------------|
-| PGD    |                   |
-| BIM    |                   |
+| PGD    | 85.89%            |
+| BIM    | 85.19%            |
 
-*(Fill in after running experiments)*
-
----
+-----
 
 ## WandB & HuggingFace Links
 
@@ -188,7 +186,7 @@ python detect.py \
 | WandB Q2(ii) Detection | [Add link] |
 | HuggingFace best model | [Add link] |
 
----
+-----
 
 ## Pushing Best Model to HuggingFace
 
@@ -203,4 +201,3 @@ api.upload_file(
     token="YOUR_HF_TOKEN",
 )
 ```
-
