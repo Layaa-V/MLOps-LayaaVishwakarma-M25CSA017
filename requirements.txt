@@ -1,0 +1,26 @@
+# Core
+torch>=2.1.0
+torchvision>=0.16.0
+torchaudio>=2.1.0
+
+# ViT / PEFT
+transformers==4.38.2
+peft>=0.10.0
+accelerate>=0.28.0
+huggingface-hub>=0.22.0
+
+# IBM ART
+adversarial-robustness-toolbox>=1.17.0
+
+# Hyperparameter optimisation
+optuna>=3.6.0
+
+# Experiment tracking
+wandb>=0.17.0
+
+# Utilities
+numpy>=1.26.0
+matplotlib>=3.8.0
+scikit-learn>=1.4.0
+tqdm>=4.66.0
+Pillow>=10.2.0
