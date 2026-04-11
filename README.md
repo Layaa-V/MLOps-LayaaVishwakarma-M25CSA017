@@ -1,63 +1,99 @@
 # Assignment 5 – DLOps: LoRA Fine-tuning & IBM ART Adversarial Attacks
 
+> **Course:** Deep Learning Operations (DLOps)  
+> **Deadline:** 03/04/2026 11:59 PM  
+> **WandB Project:** [Add your WandB link here]  
+> **HuggingFace Model:** [Add your HuggingFace link here]
 
-## Hugging Face Link : 
-https://huggingface.co/Layaa-V/dlops-assignment5-weights/tree/main
-Contents present in this link - 
-- best_optuna_model.pt: The optimal ViT-S model fine-tuned with LoRA on CIFAR-100, discovered during the Optuna hyperparameter search.
-- detector_bim_best.pt: The ResNet-34 binary classifier trained to detect Basic Iterative Method (BIM) adversarial images.
-- detector_pgd_best.pt: The ResNet-34 binary classifier trained to detect Projected Gradient Descent (PGD) adversarial images.
-- resnet18_cifar10_best.pt: The baseline ResNet18 victim model trained from scratch on clean CIFAR-10 images.
+-----
 
+## Table of Contents
 
-## WanDB Links :  
-- Question 1 - https://wandb.ai/0201ai211031-iit/DLOps-Ass5-Q1?nw=nwuser0201ai211031
-- Question 1 Optuna - https://wandb.ai/0201ai211031-iit/DLOps-Ass5-Q1-Optuna?nw=nwuser0201ai211031
-- Question 2 Part (i)  - https://wandb.ai/0201ai211031-iit/DLOps-Ass5-Q2i?nw=nwuser0201ai211031
-- Question 2 Part (ii)  - https://wandb.ai/0201ai211031-iit/DLOps-Ass5-Q2ii?nw=nwuser0201ai211031
+1.  [Project Structure](https://www.google.com/search?q=%23project-structure)
+2.  [Setup](https://www.google.com/search?q=%23setup)
+3.  [Q1 – ViT-S LoRA Fine-tuning on CIFAR-100](https://www.google.com/search?q=%23q1--vit-s-lora-fine-tuning-on-cifar-100)
+4.  [Q2 – Adversarial Attacks with IBM ART](https://www.google.com/search?q=%23q2--adversarial-attacks-with-ibm-art)
+5.  [Results](https://www.google.com/search?q=%23results)
 
+-----
+
+## Project Structure
+
+```
+Assignment5/
+├── Dockerfile
+├── requirements.txt
+├── README.md
+├── Q1/
+│   ├── train.py           # Main training script (baseline + LoRA grid)
+│   ├── optuna_search.py   # Optuna hyperparameter search
+│   └── test.py            # Evaluation + per-class histogram
+├── Q2/
+│   ├── fgsm.py            # Q2(i): FGSM from scratch vs IBM ART
+│   └── detect.py          # Q2(ii): Adversarial detection with PGD & BIM
+└── weights/               # Saved model checkpoints (pushed to GitHub)
+```
+
+-----
 
 ## Setup
 
-In terminal - 
-docker build -t dlops-ass5 .   (Build image)
+### Option A – Docker (Recommended, as required by the assignment)
 
-docker run --gpus '"device=4"' -it -v $(pwd)/weights:/app/weights -v $(pwd)/data:/app/data dlops-ass5 bash (building and running container)
+```bash
+# Build image
+docker build -t dlops-ass5 .
 
+# Run interactive container (mount current dir for persistent weights)
+docker run --gpus all -it \
+  -v $(pwd)/weights:/app/weights \
+  -v $(pwd)/data:/app/data \
+  dlops-ass5 bash
+```
+
+### Option B – Local (pip)
+
+```bash
+# Create and activate a virtual environment
+python -m venv venv
+source venv/bin/activate   # Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+-----
 
 ## Q1 – ViT-S LoRA Fine-tuning on CIFAR-100
 
+### Overview
+
+  - **Model:** `WinKawaks/vit-small-patch16-224` (ViT-S pretrained on ImageNet-21k)
+  - **Dataset:** CIFAR-100
+  - **Experiments:** Baseline (head-only) + LoRA grid (rank ∈ {2,4,8}, alpha ∈ {2,4,8}, dropout=0.1)
+  - **LoRA target modules:** `query`, `key`, `value`
+
 ### Training Commands
-(here wdbkey = your wandb key (generated token))
- 
-- cd Q1
-- python train.py --mode all --wandb_key wdbkey   (Run all experiments)
 
-- python train.py --mode baseline --wandb_key wdbkey    (baseline only)
+```bash
+# 1. Run all experiments (baseline + full LoRA grid)
+cd Q1
+python train.py --mode all --wandb_key YOUR_WANDB_KEY
 
-- python train.py --mode lora --rank 4 --alpha 8 --dropout 0.1 --wandb_key wdbkey    (single LoRA config)
+# 2. Run baseline only
+python train.py --mode baseline --wandb_key YOUR_WANDB_KEY
 
-- python optuna_search.py --n_trials 20 --wandb_key wdbkey    (Optuna hyperparameter search)
+# 3. Run a single LoRA config
+python train.py --mode lora --rank 4 --alpha 8 --dropout 0.1 --wandb_key YOUR_WANDB_KEY
 
-- python test.py --ckpt ../weights/best_optuna_model.pt --lora --rank 4 --alpha 8
+# 4. Optuna hyperparameter search (20 trials by default)
+python optuna_search.py --n_trials 20 --wandb_key YOUR_WANDB_KEY
 
+# 5. Test / evaluate a saved checkpoint
+python test.py --ckpt ../weights/best_optuna_model.pt --lora --rank 4 --alpha 8
+```
 
 ### Results Tables
-
-#### Training & Validation (Baseline – No LoRA)
-
-| Epoch | Training Loss | Validation Loss | Training Accuracy | Validation Accuracy |
-|-------|---------------|-----------------|-------------------|---------------------|
-| 1     | 0.9140        | 0.7245          | 0.7561            | 0.7894              |
-| 2     | 0.5861        | 0.7133          | 0.8230            | 0.7958              |
-| 3     | 0.5179        | 0.6887          | 0.8415            | 0.8029              |
-| 4     | 0.4662        | 0.6906          | 0.8554            | 0.8020              |
-| 5     | 0.4323        | 0.6909          | 0.8640            | 0.8053              |
-| 6     | 0.4019        | 0.6836          | 0.8736            | 0.8065              |
-| 7     | 0.3749        | 0.6805          | 0.8822            | 0.8063              |
-| 8     | 0.3518        | 0.6725          | 0.8907            | 0.8092              |
-| 9     | 0.3408        | 0.6628          | 0.8928            | 0.8106              |
-| 10    | 0.3286        | 0.6598          | 0.8977            | 0.8126              |
 
 #### Training & Validation (Example – LoRA rank=8, alpha=8, dropout=0.1)
 
