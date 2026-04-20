@@ -1,0 +1,17 @@
+  Epoch  1/17  loss=0.9425  sim=0.8507
+  Epoch  2/17  loss=0.4658  sim=1.7733
+  Epoch  3/17  loss=0.3536  sim=2.5196
+  Epoch  4/17  loss=0.3140  sim=3.0985
+  Epoch  5/17  loss=0.2882  sim=3.5805
+  Epoch  6/17  loss=0.2621  sim=4.0103
+  Epoch  7/17  loss=0.2337  sim=4.4035
+  Epoch  8/17  loss=0.2139  sim=4.7539
+  Epoch  9/17  loss=0.1979  sim=5.0546
+  Epoch 10/17  loss=0.1835  sim=5.3036
+  Epoch 11/17  loss=0.1695  sim=5.5149
+  Epoch 12/17  loss=0.1609  sim=5.6932
+  Epoch 13/17  loss=0.1513  sim=5.8521
+  Epoch 14/17  loss=0.1359  sim=5.9948
+  Epoch 15/17  loss=0.1230  sim=6.1455
+  Epoch 16/17  loss=0.1132  sim=6.2856
+  Epoch 17/17  loss=0.1062  sim=6.3992

@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fashion-config
+data:
+  WANDB_PROJECT: "fashion-discovery-engine"
+  GCS_BUCKET: "fashion-engine-layaa"
+  BACKEND_URL: "http://backend-service:8000"
+  FEEDBACK_LOG: "/app/feedback_log.json"

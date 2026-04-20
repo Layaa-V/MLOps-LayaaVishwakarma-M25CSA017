@@ -1,0 +1,83 @@
+{
+  "title": "Fashion Discovery Engine",
+  "uid": "fashion-v3",
+  "schemaVersion": 36,
+  "version": 1,
+  "refresh": "15s",
+  "panels": [
+    {
+      "id": 1, "title": "Total Searches", "type": "stat",
+      "gridPos": {"x":0,"y":0,"w":4,"h":4},
+      "targets": [{"expr": "sum(fashion_search_total)", "legendFormat": "Total"}],
+      "fieldConfig": {"defaults": {"color": {"mode": "thresholds"},
+        "thresholds": {"steps": [{"color":"green","value":0}]}}}
+    },
+    {
+      "id": 2, "title": "Searches per Minute — A vs B", "type": "timeseries",
+      "description": "Should be roughly equal (50/50 split). If one drops to zero, something is broken.",
+      "gridPos": {"x":4,"y":0,"w":10,"h":8},
+      "targets": [
+        {"expr": "rate(fashion_search_total{variant=\"A\"}[1m])*60", "legendFormat": "Variant A — Raw CLIP"},
+        {"expr": "rate(fashion_search_total{variant=\"B\"}[1m])*60", "legendFormat": "Variant B — Fine-tuned"}
+      ]
+    },
+    {
+      "id": 3, "title": "Avg Similarity Score — A vs B", "type": "timeseries",
+      "description": "This is the key chart. After fine-tuning and redeploying, watch Variant B's line climb above A.",
+      "gridPos": {"x":14,"y":0,"w":10,"h":8},
+      "targets": [
+        {"expr": "fashion_avg_similarity{variant=\"A\"}", "legendFormat": "Variant A — Raw CLIP"},
+        {"expr": "fashion_avg_similarity{variant=\"B\"}", "legendFormat": "Variant B — Fine-tuned"}
+      ]
+    },
+    {
+      "id": 4, "title": "p95 Latency (seconds) — A vs B", "type": "timeseries",
+      "description": "Variant B will be slightly slower because of the extra projection layer.",
+      "gridPos": {"x":0,"y":8,"w":12,"h":8},
+      "targets": [
+        {"expr": "histogram_quantile(0.95,rate(fashion_search_latency_seconds_bucket{variant=\"A\"}[5m]))", "legendFormat": "p95 Variant A"},
+        {"expr": "histogram_quantile(0.95,rate(fashion_search_latency_seconds_bucket{variant=\"B\"}[5m]))", "legendFormat": "p95 Variant B"}
+      ]
+    },
+    {
+      "id": 5, "title": "User Feedback — Positive vs Negative", "type": "timeseries",
+      "description": "Green line should be much higher than red. If negative spikes, check worst queries in admin dashboard.",
+      "gridPos": {"x":12,"y":8,"w":12,"h":8},
+      "targets": [
+        {"expr": "sum(fashion_feedback_total{rating=\"positive\"})", "legendFormat": "👍 Positive"},
+        {"expr": "sum(fashion_feedback_total{rating=\"negative\"})", "legendFormat": "👎 Negative"}
+      ]
+    },
+    {
+      "id": 6, "title": "Feedback per Variant", "type": "bargauge",
+      "description": "After enough usage, B positive should be tallest if fine-tuning helped.",
+      "gridPos": {"x":0,"y":16,"w":12,"h":6},
+      "targets": [
+        {"expr": "fashion_feedback_total{variant=\"A\",rating=\"positive\"}", "legendFormat": "A 👍"},
+        {"expr": "fashion_feedback_total{variant=\"A\",rating=\"negative\"}", "legendFormat": "A 👎"},
+        {"expr": "fashion_feedback_total{variant=\"B\",rating=\"positive\"}", "legendFormat": "B 👍"},
+        {"expr": "fashion_feedback_total{variant=\"B\",rating=\"negative\"}", "legendFormat": "B 👎"}
+      ]
+    },
+    {
+      "id": 7, "title": "Fine-tuned Model Status", "type": "stat",
+      "description": "Green = projection head loaded (Variant B is fine-tuned). Red = not loaded yet.",
+      "gridPos": {"x":12,"y":16,"w":6,"h":6},
+      "targets": [{"expr": "fashion_model_finetuned", "legendFormat": ""}],
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {"type":"value","options":{"0":{"text":"Not loaded","color":"red"}}},
+            {"type":"value","options":{"1":{"text":"Loaded ✓","color":"green"}}}
+          ]
+        }
+      }
+    },
+    {
+      "id": 8, "title": "Active Searches Right Now", "type": "stat",
+      "description": "Normally 0. Spikes when users are searching. If stuck above 0, server may be overloaded.",
+      "gridPos": {"x":18,"y":16,"w":6,"h":6},
+      "targets": [{"expr": "fashion_active_searches", "legendFormat": "Active"}]
+    }
+  ]
+}

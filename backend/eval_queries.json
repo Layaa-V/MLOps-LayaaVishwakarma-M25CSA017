@@ -1,0 +1,17 @@
+[
+  {"query": "blue jeans",            "expected_name_contains": "jeans"},
+  {"query": "white t-shirt",         "expected_name_contains": "shirt"},
+  {"query": "black formal trousers", "expected_name_contains": "trousers"},
+  {"query": "floral summer dress",   "expected_name_contains": "dress"},
+  {"query": "sports jacket",         "expected_name_contains": "jacket"},
+  {"query": "casual shorts",         "expected_name_contains": "shorts"},
+  {"query": "winter hoodie",         "expected_name_contains": "hoodie"},
+  {"query": "ethnic kurta",          "expected_name_contains": "kurta"},
+  {"query": "striped polo shirt",    "expected_name_contains": "shirt"},
+  {"query": "denim jacket",          "expected_name_contains": "jacket"},
+  {"query": "athletic track pants",  "expected_name_contains": "track"},
+  {"query": "printed leggings",      "expected_name_contains": "legging"},
+  {"query": "formal blazer",         "expected_name_contains": "blazer"},
+  {"query": "crop top",              "expected_name_contains": "top"},
+  {"query": "cargo pants",           "expected_name_contains": "cargo"}
+]

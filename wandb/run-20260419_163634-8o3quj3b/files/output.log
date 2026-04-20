@@ -1,0 +1,15 @@
+  Epoch  1/15  loss=0.9823  sim=0.2209
+  Epoch  2/15  loss=0.7335  sim=0.4477
+  Epoch  3/15  loss=0.5413  sim=0.6912
+  Epoch  4/15  loss=0.4279  sim=0.9314
+  Epoch  5/15  loss=0.3589  sim=1.1486
+  Epoch  6/15  loss=0.3272  sim=1.3369
+  Epoch  7/15  loss=0.3096  sim=1.4971
+  Epoch  8/15  loss=0.2946  sim=1.6343
+  Epoch  9/15  loss=0.2801  sim=1.7527
+  Epoch 10/15  loss=0.2655  sim=1.8570
+  Epoch 11/15  loss=0.2460  sim=1.9487
+  Epoch 12/15  loss=0.2330  sim=2.0302
+  Epoch 13/15  loss=0.2190  sim=2.1028
+  Epoch 14/15  loss=0.2071  sim=2.1686
+  Epoch 15/15  loss=0.1959  sim=2.2287

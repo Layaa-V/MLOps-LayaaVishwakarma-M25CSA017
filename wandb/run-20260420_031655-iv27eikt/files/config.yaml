@@ -1,0 +1,48 @@
+_wandb:
+    value:
+        cli_version: 0.26.0
+        e:
+            u2ci86uy2oeqanuv7vyshhcxj9n0ac2b:
+                codePath: finetune.py
+                codePathLocal: finetune.py
+                email: 0201ai211031@gmail.com
+                executable: /home/m25csa017/miniconda3/envs/m25csa017_env/bin/python3
+                host: cn06.cse.iitj.ac.in
+                os: Linux-4.18.0-553.109.1.el8_10.x86_64-x86_64-with-glibc2.28
+                program: /home/m25csa017/M25CSA017/fashion-engine/finetune.py
+                python: CPython 3.10.20
+                root: /home/m25csa017/M25CSA017/fashion-engine
+                startedAt: "2026-04-19T21:46:55.158941Z"
+                writerId: u2ci86uy2oeqanuv7vyshhcxj9n0ac2b
+        m: []
+        python_version: 3.10.20
+        t:
+            "1":
+                - 1
+                - 11
+                - 30
+                - 35
+                - 49
+            "2":
+                - 1
+                - 11
+                - 30
+                - 35
+                - 49
+            "3":
+                - 2
+                - 13
+                - 16
+            "4": 3.10.20
+            "5": 0.26.0
+            "6": 5.5.4
+            "12": 0.26.0
+            "13": linux-x86_64
+dropout:
+    value: 0.18988055615548133
+epochs:
+    value: 23
+hidden_dim:
+    value: 512
+lr:
+    value: 0.0012973437672744207

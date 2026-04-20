@@ -1,0 +1,9 @@
+flask
+gunicorn
+torch
+transformers
+pillow
+urllib3<2
+wandb
+prometheus-client
+google-cloud-storage

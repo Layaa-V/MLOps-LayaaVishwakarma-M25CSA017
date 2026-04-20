@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  labels:
+    app: fashion-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fashion-frontend
+  template:
+    metadata:
+      labels:
+        app: fashion-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: layaav/fashion-frontend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8501
+          env:
+            - name: BACKEND_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: fashion-config
+                  key: BACKEND_URL
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "200m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  selector:
+    app: fashion-frontend
+  ports:
+    - protocol: TCP
+      port: 8501
+      targetPort: 8501
+  type: LoadBalancer

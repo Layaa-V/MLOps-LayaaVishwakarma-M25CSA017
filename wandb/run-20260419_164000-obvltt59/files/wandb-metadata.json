@@ -1,0 +1,13 @@
+{
+  "os": "Linux-4.18.0-553.109.1.el8_10.x86_64-x86_64-with-glibc2.28",
+  "python": "CPython 3.10.20",
+  "startedAt": "2026-04-19T11:10:00.913922Z",
+  "program": "/home/m25csa017/M25CSA017/fashion-engine/finetune.py",
+  "codePath": "finetune.py",
+  "codePathLocal": "finetune.py",
+  "email": "0201ai211031@gmail.com",
+  "root": "/home/m25csa017/M25CSA017/fashion-engine",
+  "host": "cn06.cse.iitj.ac.in",
+  "executable": "/home/m25csa017/miniconda3/envs/m25csa017_env/bin/python3",
+  "writerId": "esbx1e0pv47c3fthac7mhxxhdhv9tzdd"
+}
