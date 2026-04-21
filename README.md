@@ -23,5 +23,6 @@ Key MLOPS Features -
 * **Monitoring:** Prometheus, Grafana
 * **Version Control:** Git, Git LFS
 
- 
-![Project Pipeline Flowchart](MLOPS_Flowchart.png)
+
+## Flowchart depicting the project pipeline
+<img width="600" height="900" alt="Image" src="https://github.com/user-attachments/assets/53e022bb-5c51-45ae-aa60-33af892ee052" />
