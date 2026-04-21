@@ -1,4 +1,4 @@
-# 👕 Fashion Engine: MLOps Search & A/B Testing Platform
+# Fashion Discovery Engine: MLOps Final Project
 Key MLOPS Features - 
 * **Live A/B Testing:** Compares raw CLIP model (Variant A) against a domain-specific fine tuned Fasj=hion-CLIP (Variant B).
 * **Feedback Logging:** Users can rate search results (👍/👎). Feedback is securely pushed to a Google Cloud Storage (GCS) bucket in real-time.
