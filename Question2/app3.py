@@ -93,7 +93,7 @@ def predict(model, tensor):
 
 page = st.sidebar.radio("Navigation", ["Page 1: Training Results", "Page 2: Model Inference"])
 
-# REQUIREMENT 1: Training Plots and Test Scores
+
 if page == "Page 1: Training Results":
     st.title("Training Results")
     
@@ -104,7 +104,7 @@ if page == "Page 1: Training Results":
     
     st.image("training_plots.png", caption="Training Curves (Loss, mIoU, mDice)")
 
-# REQUIREMENT 2: 4 Image Inference & Comparison
+
 elif page == "Page 2: Model Inference":
     st.title("Model Inference")
     model = load_model()
