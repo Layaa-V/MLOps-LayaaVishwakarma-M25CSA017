@@ -1,0 +1,10 @@
+torch<=1.10.2
+torchvision<=0.11.2
+opencv-python<4.6.0
+numpy<1.20.0
+matplotlib<3.4.0
+scikit-learn<1.0.0
+streamlit
+gdown
+tqdm
+Pillow<9.0.0
